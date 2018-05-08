@@ -5,12 +5,8 @@ const {
 
 //response builders
 const {
-<<<<<<< HEAD
-  createExitResponse
-=======
   createExitResponse,
   createHelpResponse
->>>>>>> new-features
 } = require("./../utilities/responseFactory/general.rfactory");
 
 //constants
@@ -18,12 +14,6 @@ const intents = require("./../constants").intents;
 const states = require("./../constants").states;
 const session = require("./../constants").session;
 
-<<<<<<< HEAD
-//messages
-const messages = require("./../messages");
-
-=======
->>>>>>> new-features
 //All unhandled request will get here
 const StopHandler = {
   canHandle(handlerInput) {
@@ -40,9 +30,6 @@ const StopHandler = {
   }
 };
 
-<<<<<<< HEAD
-module.exports = { StopHandler };
-=======
 const HelpHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
@@ -58,4 +45,3 @@ const HelpHandler = {
 };
 
 module.exports = { StopHandler, HelpHandler };
->>>>>>> new-features

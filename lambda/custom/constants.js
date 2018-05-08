@@ -27,12 +27,8 @@ module.exports = Object.freeze({
   session: {
     STATE: "_STATE",
     MORE_STORES_LIST: "_MORE_STORES_LIST",
-<<<<<<< HEAD
-    STORES_CURRENT_INDEX: "_STORES_CURRENT_INDEX"
-=======
     STORES_CURRENT_INDEX: "_STORES_CURRENT_INDEX",
     SELECTED_STORE_INDEX: "_SELECTED_STORE_INDEX"
->>>>>>> new-features
   },
 
   responseTypes: {

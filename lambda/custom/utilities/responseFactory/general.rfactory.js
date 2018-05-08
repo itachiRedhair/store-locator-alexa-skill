@@ -10,9 +10,6 @@ const createGenericErrorResponse = handlerInput => {
     .reprompt(messages.LOCATION_FAILURE)
     .getResponse();
 };
-<<<<<<< HEAD
-module.exports = { createExitResponse, createGenericErrorResponse };
-=======
 
 const createHelpResponse = handlerInput => {
   return handlerInput.responseBuilder
@@ -26,4 +23,3 @@ module.exports = {
   createGenericErrorResponse,
   createHelpResponse
 };
->>>>>>> new-features
