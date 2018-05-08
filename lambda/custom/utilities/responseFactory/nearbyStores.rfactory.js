@@ -66,15 +66,6 @@ const createMoreStoresResponse = handlerInput => {
   const response = handlerInput.responseBuilder;
   const attributes = getSession(handlerInput, session.MORE_STORES_LIST);
   const storesList = attributes[session.MORE_STORES_LIST];
-<<<<<<< HEAD
-  const storeListIndex = getSession(handlerInput)[session.STORES_LIST_INDEX];
-  console.log(storeListIndex);
-
-  if (storesList.length > 0) {
-    const speechPrompt = getMoreStoresPrompt(storesList, storeListIndex);
-    const speechReprompt = messages.SHOW_MORE_STORES;
-    setSession(handlerInput, session.STORES_LIST_INDEX, storeListIndex + 5);
-=======
   const storesCurrentIndex = getSession(handlerInput)[
     session.STORES_CURRENT_INDEX
   ];
@@ -88,7 +79,6 @@ const createMoreStoresResponse = handlerInput => {
       session.STORES_CURRENT_INDEX,
       storesCurrentIndex + 5
     );
->>>>>>> new-features
     console.log(speechPrompt);
 
     if (supportsDisplay(handlerInput)) {
@@ -104,8 +94,6 @@ const createMoreStoresResponse = handlerInput => {
   }
 };
 
-<<<<<<< HEAD
-=======
 const createNoMoreStoresResponse = handlerInput => {
   return handlerInput.responseBuilder
     .speak(messages.NO_MORE_STORES)
@@ -113,7 +101,6 @@ const createNoMoreStoresResponse = handlerInput => {
     .getResponse();
 };
 
->>>>>>> new-features
 const createDetailsOfStoreResponse = (handlerInput, store) => {
   const response = handlerInput.responseBuilder;
 
@@ -138,8 +125,6 @@ const createZipCodeInvalidResponse = handlerInput => {
     .getResponse();
 };
 
-<<<<<<< HEAD
-=======
 const createSelectedStoreResponse = (handlerInput, store) => {
   const response = handlerInput.responseBuilder;
 
@@ -175,17 +160,12 @@ const createInvalidStoreSelectionResponse = handlerInput => {
     .getResponse();
 };
 
->>>>>>> new-features
 module.exports = {
   createMoreStoresResponse,
   createNearestStoreResponse,
   createDetailsOfStoreResponse,
-<<<<<<< HEAD
-  createZipCodeInvalidResponse
-=======
   createZipCodeInvalidResponse,
   createSelectedStoreResponse,
   createInvalidStoreSelectionResponse,
   createNoMoreStoresResponse
->>>>>>> new-features
 };
