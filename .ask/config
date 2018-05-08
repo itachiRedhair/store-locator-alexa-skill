@@ -1,0 +1,19 @@
+{
+  "deploy_settings": {
+    "adminuser": {
+      "skill_id": "amzn1.ask.skill.c81e5295-e948-4784-9182-d7397200ec00",
+      "was_cloned": false,
+      "merge": {
+        "manifest": {
+          "apis": {
+            "custom": {
+              "endpoint": {
+                "uri": "ask-custom-T-Mobile-adminuser"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

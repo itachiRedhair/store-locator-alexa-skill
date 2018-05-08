@@ -1,0 +1,15 @@
+{
+  "name": "t-mobile-store-locator-skill",
+  "version": "1.0.0",
+  "scripts": {
+    "start":
+      "alexa-skill-local --file lambda/custom/index.js --config lambda/custom/asl-config.json",
+    "start:debug":
+      "alexa-skill-local --inspect-brk --file lambda/custom/index.js --config lambda/custom/asl-config.json",
+    "deploy": "ask deploy -t lambda -p adminuser",
+    "getModel":
+      "ask api get-model -s amzn1.ask.skill.c81e5295-e948-4784-9182-d7397200ec00 -g development -l en-US>models/en-US.json -p adminuser",
+    "uploadModelUS":
+      "ask api update-model -s amzn1.ask.skill.c81e5295-e948-4784-9182-d7397200ec00 --file models/en-US.json -l en-US --profile adminuser --stage development"
+  }
+}
