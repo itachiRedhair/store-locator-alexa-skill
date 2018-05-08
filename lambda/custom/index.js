@@ -15,6 +15,7 @@ exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler.NewSessionHandler,
     CommonHandler.StopHandler,
+    CommonHandler.HelpHandler,
     GetZipCodeHandler.GetZipCode,
     FindNearbyStoresHandler.FindNearestStore,
     FindNearbyStoresHandler.MoreStores,

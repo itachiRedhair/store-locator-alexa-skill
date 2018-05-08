@@ -8,7 +8,10 @@ const {
 const {
   createMoreStoresResponse,
   createNearestStoreResponse,
-  createDetailsOfStoreResponse
+  createDetailsOfStoreResponse,
+  createSelectedStoreResponse,
+  createInvalidStoreSelectionResponse,
+  createNoMoreStoresResponse
 } = require("./../utilities/responseFactory/nearbyStores.rfactory");
 const {
   createAskDevicePermissionResponse
@@ -60,6 +63,7 @@ const FindNearestStore = {
           try {
             setSession(handlerInput, session.STATE, states.STORES_INFO);
             setSession(handlerInput, session.STORES_CURRENT_INDEX, 1);
+            setSession(handlerInput, session.SELECTED_STORE_INDEX, 0);
             return await createNearestStoreResponse(
               handlerInput,
               addressResponse.address,
@@ -94,10 +98,11 @@ const MoreStores = {
     const attributes = getSession(handlerInput);
     const storesListIndex = attributes[session.STORES_CURRENT_INDEX];
     const storesList = attributes[session.MORE_STORES_LIST];
-    if (storesList.length - storesListIndex < 5) {
-      setSession(handlerInput, session.STATE, states.NO_STATE);
+    if (storesList.length - storesListIndex > 0) {
+      return createMoreStoresResponse(handlerInput);
+    } else {
+      return createNoMoreStoresResponse(handlerInput);
     }
-    return createMoreStoresResponse(handlerInput);
   }
 };
 
@@ -113,7 +118,11 @@ const DetailsOfStore = {
   },
 
   handle(handlerInput) {
-    const store = getSession(handlerInput)[session.MORE_STORES_LIST][0];
+    const attributes = getSession(handlerInput);
+    const selectedStoreIndex = attributes[session.SELECTED_STORE_INDEX];
+    const storesCurrentIndex = attributes[session.STORES_CURRENT_INDEX];
+
+    const store = attributes[session.MORE_STORES_LIST][selectedStoreIndex];
     return createDetailsOfStoreResponse(handlerInput, store);
   }
 };
@@ -131,12 +140,35 @@ const SelectStore = {
 
   handle(handlerInput) {
     const attributes = getSession(handlerInput);
-    const storeIndex =
-      handlerInput.requestEnvelope.request.intent.slots.storeIndex.value;
+    let selectedStoreIndex = Number(
+      handlerInput.requestEnvelope.request.intent.slots.selectedStoreIndex.value
+    );
+    console.log("in selected store handler ", selectedStoreIndex);
     const storesCurrentIndex = attributes[session.STORES_CURRENT_INDEX];
-    const store =
-      attributes[session.MORE_STORES_LIST][storeIndex + storesCurrentIndex - 1];
-    return createNearestStoreResponse(handlerInput, store);
+    const storesList = attributes[session.MORE_STORES_LIST];
+    const selectedStoreIndexLimit =
+      storesCurrentIndex <= storesList.length
+        ? 5
+        : storesList.length + 5 - storesCurrentIndex;
+
+    if (selectedStoreIndex <= selectedStoreIndexLimit) {
+      selectedStoreIndex = storesCurrentIndex + selectedStoreIndex - 6;
+      const store = attributes[session.MORE_STORES_LIST][selectedStoreIndex];
+      console.log(
+        "in selected store handler",
+        selectedStoreIndex,
+        storesCurrentIndex,
+        store
+      );
+      setSession(
+        handlerInput,
+        session.SELECTED_STORE_INDEX,
+        selectedStoreIndex
+      );
+      return createSelectedStoreResponse(handlerInput, store);
+    } else {
+      return createInvalidStoreSelectionResponse(handlerInput);
+    }
   }
 };
 

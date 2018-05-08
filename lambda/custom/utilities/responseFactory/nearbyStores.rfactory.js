@@ -8,6 +8,7 @@ const { setSession, getSession } = require("./../helper/session.helper");
 const messages = require("./../../messages");
 const {
   getNearestStorePrompt,
+  getSelectedStorePrompt,
   getNearestStoreReprompt,
   getMoreStoresPrompt,
   getDetailsOfStorePrompt
@@ -65,6 +66,7 @@ const createMoreStoresResponse = handlerInput => {
   const response = handlerInput.responseBuilder;
   const attributes = getSession(handlerInput, session.MORE_STORES_LIST);
   const storesList = attributes[session.MORE_STORES_LIST];
+<<<<<<< HEAD
   const storeListIndex = getSession(handlerInput)[session.STORES_LIST_INDEX];
   console.log(storeListIndex);
 
@@ -72,6 +74,21 @@ const createMoreStoresResponse = handlerInput => {
     const speechPrompt = getMoreStoresPrompt(storesList, storeListIndex);
     const speechReprompt = messages.SHOW_MORE_STORES;
     setSession(handlerInput, session.STORES_LIST_INDEX, storeListIndex + 5);
+=======
+  const storesCurrentIndex = getSession(handlerInput)[
+    session.STORES_CURRENT_INDEX
+  ];
+  console.log(storesCurrentIndex);
+
+  if (storesList.length > 0) {
+    const speechPrompt = getMoreStoresPrompt(storesList, storesCurrentIndex);
+    const speechReprompt = messages.SHOW_MORE_STORES;
+    setSession(
+      handlerInput,
+      session.STORES_CURRENT_INDEX,
+      storesCurrentIndex + 5
+    );
+>>>>>>> new-features
     console.log(speechPrompt);
 
     if (supportsDisplay(handlerInput)) {
@@ -87,6 +104,16 @@ const createMoreStoresResponse = handlerInput => {
   }
 };
 
+<<<<<<< HEAD
+=======
+const createNoMoreStoresResponse = handlerInput => {
+  return handlerInput.responseBuilder
+    .speak(messages.NO_MORE_STORES)
+    .reprompt(messages.NO_MORE_STORES)
+    .getResponse();
+};
+
+>>>>>>> new-features
 const createDetailsOfStoreResponse = (handlerInput, store) => {
   const response = handlerInput.responseBuilder;
 
@@ -111,9 +138,54 @@ const createZipCodeInvalidResponse = handlerInput => {
     .getResponse();
 };
 
+<<<<<<< HEAD
+=======
+const createSelectedStoreResponse = (handlerInput, store) => {
+  const response = handlerInput.responseBuilder;
+
+  if (supportsDisplay(handlerInput)) {
+    response.addRenderTemplateDirective(getStoreTemplateCard(store));
+  }
+  if (store) {
+    const speechPrompt = getSelectedStorePrompt(store);
+    const speechReprompt =
+      messages.SHOW_MORE_STORES + " or " + messages.STORE_DETAILS;
+    return response
+      .speak(speechPrompt + " " + speechReprompt)
+      .reprompt(speechReprompt)
+      .withStandardCard(
+        store.name,
+        store.address.street + "\n" + store.address.city,
+        `https://cdn.pixabay.com/photo/2016/05/25/20/17/icon-1415760_960_720.png`,
+        `https://cdn.pixabay.com/photo/2016/05/25/20/17/icon-1415760_960_720.png`
+      )
+      .getResponse();
+  } else {
+    return response
+      .speak(messages.INVALID_STORE_SELECTION)
+      .reprompt(messages.INVALID_STORE_SELECTION)
+      .getResponse();
+  }
+};
+
+const createInvalidStoreSelectionResponse = handlerInput => {
+  return handlerInput.responseBuilder
+    .speak(messages.INVALID_STORE_SELECTION)
+    .reprompt(messages.INVALID_STORE_SELECTION)
+    .getResponse();
+};
+
+>>>>>>> new-features
 module.exports = {
   createMoreStoresResponse,
   createNearestStoreResponse,
   createDetailsOfStoreResponse,
+<<<<<<< HEAD
   createZipCodeInvalidResponse
+=======
+  createZipCodeInvalidResponse,
+  createSelectedStoreResponse,
+  createInvalidStoreSelectionResponse,
+  createNoMoreStoresResponse
+>>>>>>> new-features
 };

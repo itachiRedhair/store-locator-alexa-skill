@@ -1,3 +1,7 @@
 node_modules/
+<<<<<<< HEAD
 lambda/custom/node_modules/
 *.zip
+=======
+lambda/custom/node_modules/
+>>>>>>> new-features

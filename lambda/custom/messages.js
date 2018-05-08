@@ -10,20 +10,31 @@ module.exports = Object.freeze({
   GREETING: "Welcome to T Mobile Store Locator.",
 
   START_HELP_MESSAGE:
-    "Try saying find nearby stores. Or you can say find stores for zipcode nine eight zero nine three",
+    "Try saying find nearby stores. Or you can say find stores for zipcode nine eight zero nine three.",
+
+  INSTRUCTIONS:
+    "I am as you know a store locator. You can find nearby stores and I will help you finding nearest store according to your device location. You can also say find stores near zipcode nine eight one zero one. You can ask for more details of particular store or opt for more stores. For the starters, try saying find nearby stores.",
 
   ZIPCODE_INVALID:
-    "This zip code is not valid. Ensure you are giving me zip code from US",
+    "This zip code is not valid. Be sure to give zip code from United States.",
 
   NO_STORES_NEARBY:
     "No stores nearby your current address. Please check your zipcode under device setting in Alexa App.",
 
   SHOW_MORE_STORES: "You can say show me more stores.",
 
+  NO_MORE_STORES: "There are no more stores available.",
+
+  STORE_DETAILS: "You can ask for details of store.",
+
+  INVALID_STORE_SELECTION:
+    "You have selected an invalid store. Try saying a number of corresponding store or you can ask for more stores.",
+
   NOTIFY_MISSING_PERMISSIONS:
     "You have not given this skill your permission for Device Address.",
 
-  GENERIC_ERROR: "Looks like something went wrong.",
+  GENERIC_ERROR:
+    "Looks like something went wrong. Try saying find nearby stores. If you still face the problem, come back later.",
 
   EXIT: "Okay, see you next time.",
 
@@ -51,6 +62,22 @@ module.exports = Object.freeze({
         " store is " +
         name +
         " which is " +
+        distanceFormat(distance) +
+        " miles away. It is located at " +
+        address.street +
+        " in " +
+        address.city +
+        ".";
+      prompt = removeSpecialCharacter(prompt);
+      return prompt;
+    },
+    getSelectedStorePrompt: store => {
+      const { type, name, distance, address } = store;
+      let prompt =
+        name +
+        " is a " +
+        type +
+        " store which is " +
         distanceFormat(distance) +
         " miles away. It is located at " +
         address.street +
@@ -91,10 +118,19 @@ module.exports = Object.freeze({
       prompt +=
         "All these stores are within " +
         Math.round(maxDistance * 100) / 100 +
-        " miles.";
+        " miles. ";
       if (storesList.length - storesListIndex >= 5) {
-        prompt += " " + "You can say show me more stores.";
+        prompt +=
+          " " +
+          "You can say show me more stores. Or you can say a number from one to five for particular store's details.";
+      } else {
+        const storeSelectionLimit = storesList.length - storesListIndex;
+        prompt +=
+          "You can say a number from one to " +
+          storeSelectionLimit +
+          " for particular store's details.";
       }
+
       prompt = removeSpecialCharacter(prompt);
       return prompt;
     },
@@ -114,7 +150,7 @@ module.exports = Object.freeze({
           " You can contact store on phone number " +
           '<say-as interpret-as="telephone">' +
           phoneNumber +
-          "</say-as>";
+          "</say-as>.";
       }
       prompt = removeSpecialCharacter(prompt);
       return prompt;
