@@ -151,6 +151,38 @@ module.exports = Object.freeze({
   },
 
   cardGenerators: {
+    getDefaultCard: () => {
+      const bgImage = new Alexa.ImageHelper()
+        .addImageInstance(
+          "https://s3.amazonaws.com/t-mobile-alexa-skill/tMobileSkillBackground.jpeg"
+        )
+        .getImage();
+      const tmobileLogo = new Alexa.ImageHelper()
+        .withDescription("Google Map")
+        .addImageInstance(
+          "https://cdn.macrumors.com/article-new/2016/10/tmobile-fcc.jpg"
+        )
+        .getImage();
+
+      const titleText = `<font size="7">T-Mobile</font><br/>`;
+      const hintText = "<i>Try saying, 'Find nearby stores'</i>";
+      const textContent = new Alexa.RichTextContentHelper()
+        .withPrimaryText(titleText)
+        .withSecondaryText(hintText)
+        .withTertiaryText("")
+        .getTextContent();
+      const cardTemplate = {
+        type: "BodyTemplate3",
+        token: "Homepage",
+        backButton: "VISIBLE",
+        backgroundImage: bgImage,
+        title: "T-Mobile",
+        image: tmobileLogo,
+        textContent
+      };
+      return cardTemplate;
+    },
+
     getStoreTemplateCard: store => {
       const bgImage = new Alexa.ImageHelper()
         .addImageInstance(
