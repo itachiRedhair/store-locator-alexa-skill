@@ -104,7 +104,9 @@ module.exports = Object.freeze({
         console.log("inside getmorestoresprompt", i, storesList[i]);
         prompt +=
           storesList[i].name +
-          (i === storesListIndex + storesLimit - 1 ? ". " : ",<break time='1s'/> ");
+          (i === storesListIndex + storesLimit - 1
+            ? ". "
+            : ",<break time='1s'/> ");
       }
       const maxDistance =
         storesList[storesListIndex + storesLimit - 1].distance;
@@ -144,6 +146,9 @@ module.exports = Object.freeze({
           '<say-as interpret-as="telephone">' +
           phoneNumber +
           "</say-as>.";
+      }
+      if (!(storeHours || phoneNumber)) {
+        prompt += "Sorry, no further details are available for this store.";
       }
       prompt = removeSpecialCharacter(prompt);
       return prompt;
