@@ -1,8 +1,14 @@
 //messages
 const messages = require("./../../messages");
+const { getDefaultCard } = require("./../../messages").cardGenerators;
+const { supportsDisplay } = require("./../helper/display.helper");
 
 const createNoAddressResponse = handlerInput => {
-  return handlerInput.responseBuilder.speak(messages.NO_ADDRESS).getResponse();
+  const response = handlerInput.responseBuilder;
+  if (supportsDisplay(handlerInput)) {
+    response.addRenderTemplateDirective(getDefaultCard());
+  }
+  return response.speak(messages.NO_ADDRESS).getResponse();
 };
 
 module.exports = { createNoAddressResponse };

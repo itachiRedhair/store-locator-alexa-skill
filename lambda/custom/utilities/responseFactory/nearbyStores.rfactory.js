@@ -15,6 +15,7 @@ const {
 } = require("./../../messages").speechGenerators;
 const {
   getStoreTemplateCard,
+  getDefaultCard,
   getStoreTemplateList
 } = require("./../../messages").cardGenerators;
 
@@ -95,7 +96,11 @@ const createMoreStoresResponse = handlerInput => {
 };
 
 const createNoMoreStoresResponse = handlerInput => {
-  return handlerInput.responseBuilder
+  const response = handlerInput.responseBuilder;
+  if (supportsDisplay(handlerInput)) {
+    response.addRenderTemplateDirective(getDefaultCard());
+  }
+  return response
     .speak(messages.NO_MORE_STORES)
     .reprompt(messages.NO_MORE_STORES)
     .getResponse();

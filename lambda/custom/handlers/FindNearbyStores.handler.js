@@ -165,6 +165,7 @@ const SelectStore = {
         session.SELECTED_STORE_INDEX,
         selectedStoreIndex
       );
+      
       return createSelectedStoreResponse(handlerInput, store);
     } else {
       return createInvalidStoreSelectionResponse(handlerInput);

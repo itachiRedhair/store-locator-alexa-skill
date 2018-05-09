@@ -41,7 +41,8 @@ const GetZipCode = {
       //building response based on zipcode
       try {
         setSession(handlerInput, session.STATE, states.STORES_INFO);
-        setSession(handlerInput, session.STORES_LIST_INDEX, 1);
+        setSession(handlerInput, session.STORES_CURRENT_INDEX, 1);
+        setSession(handlerInput, session.SELECTED_STORE_INDEX, 0);
         return await createNearestStoreResponse(
           handlerInput,
           { postalCode: zipcode },
