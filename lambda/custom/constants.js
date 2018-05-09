@@ -49,6 +49,7 @@ module.exports = Object.freeze({
     GetZipCode: "GetZipCode",
     FindNearestStore: "FindNearestStore",
     MoreStores: "MoreStores",
+    RepeatStoreList: "RepeatStoreList",
     DetailsOfStore: "DetailsOfStore",
     SelectStore: "SelectStore",
 

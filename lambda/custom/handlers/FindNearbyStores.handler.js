@@ -99,7 +99,30 @@ const MoreStores = {
     const storesListIndex = attributes[session.STORES_CURRENT_INDEX];
     const storesList = attributes[session.MORE_STORES_LIST];
     if (storesList.length - storesListIndex > 0) {
-      return createMoreStoresResponse(handlerInput);
+      return createMoreStoresResponse(handlerInput, storesListIndex);
+    } else {
+      return createNoMoreStoresResponse(handlerInput);
+    }
+  }
+};
+
+const RepeatStoreList = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    const attributes = getSession(handlerInput);
+    return (
+      attributes[session.STATE] == states.STORES_INFO &&
+      request.type === intents.type.IntentRequest &&
+      request.intent.name === intents.RepeatStoreList
+    );
+  },
+
+  handle(handlerInput) {
+    const attributes = getSession(handlerInput);
+    const storesListIndex = attributes[session.STORES_CURRENT_INDEX] - 5;
+    const storesList = attributes[session.MORE_STORES_LIST];
+    if (storesList.length - storesListIndex > 0) {
+      return createMoreStoresResponse(handlerInput, storesListIndex);
     } else {
       return createNoMoreStoresResponse(handlerInput);
     }
@@ -165,7 +188,7 @@ const SelectStore = {
         session.SELECTED_STORE_INDEX,
         selectedStoreIndex
       );
-      
+
       return createSelectedStoreResponse(handlerInput, store);
     } else {
       return createInvalidStoreSelectionResponse(handlerInput);
@@ -177,5 +200,6 @@ module.exports = {
   FindNearestStore,
   MoreStores,
   DetailsOfStore,
-  SelectStore
+  SelectStore,
+  RepeatStoreList
 };

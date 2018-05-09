@@ -63,13 +63,11 @@ const createNearestStoreResponse = async (handlerInput, address, range) => {
   }
 };
 
-const createMoreStoresResponse = handlerInput => {
+const createMoreStoresResponse = (handlerInput, storesCurrentIndex) => {
   const response = handlerInput.responseBuilder;
   const attributes = getSession(handlerInput, session.MORE_STORES_LIST);
   const storesList = attributes[session.MORE_STORES_LIST];
-  const storesCurrentIndex = getSession(handlerInput)[
-    session.STORES_CURRENT_INDEX
-  ];
+
   console.log(storesCurrentIndex);
 
   if (storesList.length > 0) {

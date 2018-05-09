@@ -19,6 +19,7 @@ exports.handler = skillBuilder
     GetZipCodeHandler.GetZipCode,
     FindNearbyStoresHandler.FindNearestStore,
     FindNearbyStoresHandler.MoreStores,
+    FindNearbyStoresHandler.RepeatStoreList,
     FindNearbyStoresHandler.SelectStore,
     FindNearbyStoresHandler.DetailsOfStore,
 
