@@ -223,10 +223,9 @@ module.exports = Object.freeze({
         ", " +
         store.address.zipcode +
         `</font><br/>`;
-      const contactText =
-        (store.metainfo.phone_number
-          ? `<font size="2">Contact: ` + store.metainfo.phone_number
-          : ``) + `</font>`;
+      const contactText = store.metainfo.phone_number
+        ? `<font size="2">Contact: ` + store.metainfo.phone_number + `</font>`
+        : ``;
       let hoursText = `<br/>`;
       if (store.metainfo.store_hours) {
         hoursText += `<font size="1">Store Hrs: </font> <br/>`;
