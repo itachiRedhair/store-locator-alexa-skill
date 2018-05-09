@@ -7,57 +7,50 @@ const {
 } = require("./utilities/helper/responseFormat.helper");
 
 module.exports = Object.freeze({
-  GREETING: "Welcome to T Mobile Store Locator.",
+  GREETING:
+    "<prosody rate='93%'>Well hello there!</prosody> Welcome to the T Mobile Store Locator.",
 
-  START_HELP_MESSAGE:
-    "Try saying find nearby stores. Or you can say find stores for zipcode nine eight zero nine three.",
+  START_HELP_MESSAGE: `Okay, so you can try saying <prosody rate='93%'>find nearby stores</prosody>. Or you can say somethig like <prosody rate='93%'>find stores for zipcode nine eight zero nine three</prosody>.`,
 
-  INSTRUCTIONS:
-    "I am as you know a store locator. You can find nearby stores and I will help you finding nearest store according to your device location. You can also say find stores near zipcode nine eight one zero one. You can ask for more details of particular store or opt for more stores. For the starters, try saying find nearby stores.",
+  INSTRUCTIONS: `Okay, so as you know, I am a store locator. I can help you find nearest store according to your device location. You can also say something like <prosody rate='93%'>find stores for zipcode nine eight zero nine three</prosody>. You can ask for more details of a particular store or opt for more stores. To get you going, try saying <prosody rate='93%'>find nearby stores</prosody>.`,
 
   ZIPCODE_INVALID:
-    "This zip code is not valid. Be sure to give zip code from United States.",
+    "Oh snap! Looks like this zip code is not a valid one. Can you please provide a zip code from the United States?",
 
   NO_STORES_NEARBY:
-    "No stores nearby your current address. Please check your zipcode under device setting in Alexa App.",
+    "Oh no! It seems you don't have any stores near your current address. Can you please make sure your zipcode is valid?",
 
-  SHOW_MORE_STORES: "You can say show me more stores.",
+  SHOW_MORE_STORES: `Try saying <prosody rate='93%'>show more stores</prosody>.`,
 
-  NO_MORE_STORES: "There are no more stores available.",
+  NO_MORE_STORES: "This is all I have for you right now.",
 
-  STORE_DETAILS: "You can ask for details of store.",
+  STORE_DETAILS: "You can ask for the details of this store.",
 
   INVALID_STORE_SELECTION:
-    "You have selected an invalid store. Try saying a number of corresponding store or you can ask for more stores.",
+    "I don't think that is a valid option! Try saying a number of corresponding store or you can ask for more stores.",
 
-  NOTIFY_MISSING_PERMISSIONS:
-    "You have not given this skill your permission for Device Address.",
+  NOTIFY_MISSING_PERMISSIONS: `Looks like I don't have a permission for your Device Address. You should be seeing a prompt on your Alexa App. Please click on <prosody rate='93%'>Manage Permission</prosody> and change the setting accordingly.`,
 
-  GENERIC_ERROR:
-    "Looks like something went wrong. Try saying find nearby stores. If you still face the problem, come back later.",
+  GENERIC_ERROR: `Oh snap! Looks like something went wrong. Try saying <prosody rate='93%'>find nearby stores</prosody>. If you still face the same problem, please check again later.`,
 
-  EXIT: "Okay, see you next time.",
+  EXIT: "Okay, until next time then!",
 
-  LOCATION_FAILURE:
-    "There was an error with the Device Address API. Please try again.",
+  LOCATION_FAILURE: `Hmmm, Apparently I have an issue getting your Device Address. Okay, let's try saying somethig like <prosody rate='93%'>find stores for zipcode nine eight zero nine three</prosody>.`,
 
   NO_ADDRESS:
-    "It seems you have not set an address. You can set it in your device setting.",
+    "Okay, I think you have not set an address. Try setting it in your device settings.",
 
-  ALL_UNHANDLED:
-    "Sorry, I couldn't understand that. Try saying find nearby stores",
+  ALL_UNHANDLED: `Oh snap! I couldn't understand that. Try saying <prosody rate='93%'>find nearby stores</prosody>.`,
 
-  MORE_STORES_UNHANDLED:
-    "Sorry, I don't have any stores to show. Try saying find nearby stores.",
+  MORE_STORES_UNHANDLED: `Woah! I don't have any stores to show. Try saying <prosody rate='93%'>find nearby stores</prosody>.`,
 
-  MORE_STORES_STATE_UNHANDLED:
-    "Sorry, I didn't get that. Try saying show more stores",
+  MORE_STORES_STATE_UNHANDLED: `Sorry, I don't think I understand that. Try saying <prosody rate='93%'>find nearby stores</prosody>.`,
 
   speechGenerators: {
     getNearestStorePrompt: store => {
       const { type, name, distance, address } = store;
       let prompt =
-        "Nearest " +
+        "Okay! So the nearest " +
         type +
         " store is " +
         name +
@@ -111,7 +104,7 @@ module.exports = Object.freeze({
         console.log("inside getmorestoresprompt", i, storesList[i]);
         prompt +=
           storesList[i].name +
-          (i === storesListIndex + storesLimit - 1 ? ". " : ", ");
+          (i === storesListIndex + storesLimit - 1 ? ". " : ",<break time='1s'/> ");
       }
       const maxDistance =
         storesList[storesListIndex + storesLimit - 1].distance;
