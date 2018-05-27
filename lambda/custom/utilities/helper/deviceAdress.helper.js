@@ -1,14 +1,10 @@
-const messages = require("./../../messages");
+//constants
 const responseType = require("./../../constants").responseTypes;
+const testEnvironment = require("./../../constants").testEnvironment;
 
-const simulatorTesting = true;
-
+//return address response containing type of response and address payload
 const getDeviceAddress = async handlerInput => {
-  const {
-    requestEnvelope,
-    serviceClientFactory,
-    responseBuilder
-  } = handlerInput; //extract handlerInput
+  const { requestEnvelope, serviceClientFactory } = handlerInput; //extract handlerInput
 
   const consentToken =
     requestEnvelope.context.System.user.permissions && //get consent token if it is available
@@ -16,7 +12,8 @@ const getDeviceAddress = async handlerInput => {
   if (!consentToken) {
     return { type: responseType.CONSENT_TOKEN_NOT_FOUND };
   }
-  if (simulatorTesting === false) {
+
+  if (testEnvironment !== "simulator") {
     try {
       const { deviceId } = requestEnvelope.context.System.device;
       const deviceAddressServiceClient = serviceClientFactory.getDeviceAddressServiceClient();
@@ -24,7 +21,7 @@ const getDeviceAddress = async handlerInput => {
 
       console.log("Address successfully retrieved.");
       console.log(address);
-      if (address.postalCode === null) {
+      if (!address.postalCode) {
         return { type: responseType.ADDRESS_NOT_SET };
       } else {
         return { type: responseType.ADDRESS_FOUND, address };

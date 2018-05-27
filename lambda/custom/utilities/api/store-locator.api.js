@@ -1,13 +1,15 @@
 const https = require("https");
 
-const getStores = (zipcode, range, count) => {
-  const storeRange = range ? range : 10;
-  const storeCount = count ? count : 10;
+const getStores = (zipcode, range) => {
+  //default values for range and count
+  const storeRange = range ? range : 50;
+  const storeCount = 10;
   console.log("in store locator api", zipcode, storeRange, storeCount);
+
   return new Promise((resolve, reject) => {
     https
       .get(
-        `https://t-mobile-store-locator.herokuapp.com/alexa-get-stores?zipcode=${zipcode}&range=${storeRange}&count=${storeCount}`,
+        `https:/CENSORED-store-locator.herokuapp.com/alexa-get-stores?zipcode=${zipcode}&range=${storeRange}&count=${storeCount}`,
         response => {
           let data = "";
 

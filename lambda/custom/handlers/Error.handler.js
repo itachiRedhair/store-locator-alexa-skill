@@ -1,24 +1,36 @@
-const messages = require("./../messages");
-const permissions = require("./../constants").PERMISSIONS;
+const {
+  setSession,
+  getSession
+} = require("./../utilities/helper/session.helper");
 
+//messages
+const messages = require("./../messages");
+
+//constants
+const constants = require("./../constants");
+const permissions = require("./../constants").PERMISSIONS;
+const session = require("./../constants").session;
+const states = require("./../constants").states;
+
+//response builders
+const {
+  createAskDevicePermissionResponse
+} = require("./../utilities/responseFactory/permissions.rfactory");
+const {
+  createGenericErrorResponse
+} = require("./../utilities/responseFactory/general.rfactory");
+
+//handlers
 const GetAddressError = {
   canHandle(handlerInput, error) {
-    return error.name === "ServiceError";
+    return error.name === constants.error.name.SERVICE_ERROR;
   },
 
   handle(handlerInput, error) {
-    if (error.statusCode === 403) {
-      return handlerInput.responseBuilder
-        .speak(messages.NOTIFY_MISSING_PERMISSIONS)
-        .withAskForPermissionsConsentCard(
-          permissions.DEVICE_ADDRESS_PERMISSIONS
-        )
-        .getResponse();
+    if (error.statusCode === constants.error.statusCode.FORBIDDEN) {
+      return createAskDevicePermissionResponse(handlerInput);
     }
-    return handlerInput.responseBuilder
-      .speak(messages.LOCATION_FAILURE)
-      .reprompt(messages.LOCATION_FAILURE)
-      .getResponse();
+    return createGenericErrorResponse(handlerInput);
   }
 };
 
@@ -28,6 +40,7 @@ const DefaultErrorHandler = {
   },
 
   handle(handlerInput, error) {
+    setSession(handlerInput, session.STATE, states.NO_STATE);
     console.log(`Error handled: ${error.message}`);
 
     return handlerInput.responseBuilder

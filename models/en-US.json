@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "t mobile",
+      "invocationName": "store locator",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -16,10 +16,91 @@
           "samples": []
         },
         {
-          "name": "FindNearbyStores",
+          "name": "FindNearestStore",
+          "slots": [
+            {
+              "name": "range",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "stores_count",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
           "samples": [
-            "find near by stores"
+            "find {stores_count} all nearby stores within {range} miles",
+            "find {stores_count} nearby stores within {range} miles",
+            "find {stores_count} nearest stores",
+            "find {stores_count} nearest store to me",
+            "find {stores_count} nearest store from my location",
+            "find {stores_count} store from my address",
+            "find {stores_count} store within {range} miles",
+            "find {stores_count} closest store",
+            "find {stores_count} closest store to me",
+            "find {stores_count} closest store from my address",
+            "find {stores_count} closest store within {range} miles",
+            "find closest store within {range} miles",
+            "find closest store from my address",
+            "find closest store to me",
+            "find closest store",
+            "find nearest store within {range} miles",
+            "find nearest store from my address",
+            "find nearest store from my location",
+            "find nearest store to me",
+            "find nearest stores"
           ]
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.MoreIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateSettingsIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PageUpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PageDownIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollRightIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollDownIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollLeftIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollUpIntent",
+          "samples": []
         }
       ]
     }
